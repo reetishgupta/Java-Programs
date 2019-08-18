@@ -8,41 +8,34 @@ class Calculator
 		 System.out.println("enter the numeric expression");
 		 String enteredExpression = scan.next();
 		 System.out.println("You have entered "+enteredExpression);
-         boolean firstOperator = false;
-         boolean secondOperator = false;
-         double result;
-         	String op1="";
-			String op2="";
-			char operator='a'; 
-		 for(int i=0;i<=enteredExpression.length();i++)
+                 boolean firstOperator = false;
+                 double result;
+         	 String op1="";
+		 String op2="";
+		 char operator='a'; 
+		 for(int i=0;i<=enteredExpression.length()-1;i++)
 
 		{
 			char cc = enteredExpression.charAt(i);
-		
-			 //12+12+12
-			
+		        //12+12+12
 			if(cc == '*' || cc == '+' || cc=='-' || cc=='%' ){
+				    prevOperator=operator;
 				    operator = cc;
 				    if(firstOperator==true) { 
-				        secondOperator=true; 	
-				        op1 = calc(Double.parseDouble(op1),Double.parseDouble(op2),operator) +"";
+				     op1 = calc(Double.parseDouble(op1),Double.parseDouble(op2),prevOperator) +"";
+				     op2="";
 				    } 
 				    else { firstOperator=true; }
 			   }
-			    else if(cc=='\n') { 
-			            result = calc(Double.parseDouble(op1),Double.parseDouble(op2),operator); 
-			        
-			    }
-			    else { 
-				        if(firstOperator==true){ op2+=cc;}
-				         if(secondOperator==true){
-					                op1 = calc(Double.parseDouble(op1),Double.parseDouble(op2),operator)+"";					
+			     else { 
+				   if(firstOperator==true){ op2+=cc;continue;}
+				         else{op1+=cc;}					
 				         }
 		        }
 		  }
-
-	        
-	}
+	            result=cal(Double.parseDouble(op1),Double.parseDouble(op2),operator);
+	            System.out.println("Result:"+result);
+  }
 
 	public static double calc(double op1,double op2,char operator){
 		 System.out.println("enter first number"+op1);
